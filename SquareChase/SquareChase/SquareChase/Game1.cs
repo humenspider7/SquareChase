@@ -26,6 +26,7 @@ namespace SquareChase
         float timeRemaining = 0.0f;
         float TimePerSquare = 1.35f;
         Color[] colors = new Color[3] { Color.Red, Color.Green, Color.Blue };
+        int squareS = 25;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -83,10 +84,12 @@ namespace SquareChase
             if (timeRemaining == 0.0f)
             {
                 currentSquare = new Rectangle(
-                rand.Next(0, this.Window.ClientBounds.Width - 25),
-                rand.Next(0, this.Window.ClientBounds.Height - 25),
-                25, 25);
+                rand.Next(0, this.Window.ClientBounds.Width - squareS),
+                rand.Next(0, this.Window.ClientBounds.Height - squareS),
+                squareS, squareS);
                 timeRemaining = TimePerSquare;
+
+                
             }
             MouseState mouse = Mouse.GetState();
             //If the mouse left clicks the square.
@@ -96,7 +99,14 @@ namespace SquareChase
                 playerScore++;
                 timeRemaining = 0.0f;
                 TimePerSquare = TimePerSquare - 0.05f;
-                
+
+                if (squareS > 10)
+                {
+                    squareS = squareS - 1;
+                }
+
+
+
             }
             timeRemaining = MathHelper.Max(0, timeRemaining -
              (float)gameTime.ElapsedGameTime.TotalSeconds);
